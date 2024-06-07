@@ -11,18 +11,17 @@ page_list = ["hbk-strats-developer.html", "open-data-services-co-operative-pytho
 # print out title from first page, email, appliction link
 for i in range(0, len(page_list), 1):
     main_url = url + page_list[i]
-    #print(main_url)
     resp = requests.get(main_url)
     soup = BeautifulSoup(resp.content, "html.parser")
 
     job_title = soup.find("article").find("h1")
     print("Job Title:", job_title.text.strip(), end="\n")
 
-    contact_elts = soup.find("article").find(class_="contact").find_all("div")#.find(string=" Email ")
+    contact_elts = soup.find("article").find(class_="contact").find_all("div")
   
     # # # print out all jobs, add 2 new lines @ end of job string
     for j in range(0, len(contact_elts), 1):
-        link = contact_elts[j].find("a") # href="/jobs/hbk-strats-developer.html") #href="/jobs/hbk-strats-developer.html")
+        link = contact_elts[j].find("a")
 
         if link != None and j == 1:
             # we extracted the email, print it out
