@@ -19,23 +19,16 @@ for i in range(0, len(page_list), 1):
     print("Job Title:", job_title.text.strip(), end="\n")
 
     contact_elts = soup.find("article").find(class_="contact").find_all("div")#.find(string=" Email ")
-    #print(contact_elts)
-    #print(email.text, end="\n"*2)
-
-
-    # job_list = soup.find_all("div", class_="job")
-
-    # print(job_list)
-
+  
     # # # print out all jobs, add 2 new lines @ end of job string
+    for j in range(0, len(contact_elts), 1):
+        link = contact_elts[j].find("a") # href="/jobs/hbk-strats-developer.html") #href="/jobs/hbk-strats-developer.html")
 
-    for job in contact_elts:
-        
-        #print(job, "\n"*2)
-        #print("-------")
-        email = job.find("a") # href="/jobs/hbk-strats-developer.html") #href="/jobs/hbk-strats-developer.html")
-        #print(email)
-        if email != None:
-            print(email.text.strip())
+        if link != None and j == 1:
+            # we extracted the email, print it out
+            print("Email:", link.text.strip())
+        elif link != None and j == 2:
+            # we extracted the application link, print it out
+            print("Application Link:", link.text.strip())
 
     print("\n"*2)
