@@ -1,6 +1,5 @@
 import requests 
 from bs4 import BeautifulSoup
-import re
 
 url = "https://pythonjobs.github.io/jobs/"
 page_list = ["hbk-strats-developer.html", "open-data-services-co-operative-python-software-developer.html", "oomnitza-back-end-sw-enginneer-irl-remote.html", "bmat-python-backend-engineer.html", "bmat-senior-backend-engineer.html"]
@@ -14,10 +13,11 @@ for i in range(0, len(page_list), 1):
     resp = requests.get(main_url)
     soup = BeautifulSoup(resp.content, "html.parser")
 
+    # extract job title, contact(email, app link), and body text
     job_title = soup.find("article").find("h1")
     print("Job Title:", job_title.text.strip(), end="\n")
-
     contact_elts = soup.find("article").find(class_="contact").find_all("div")
+    body = soup.find(class_="body").find("p")
   
     # # # print out all jobs, add 2 new lines @ end of job string
     for j in range(0, len(contact_elts), 1):
@@ -30,4 +30,5 @@ for i in range(0, len(page_list), 1):
             # we extracted the application link, print it out
             print("Application Link:", link.text.strip())
 
+    print("About the Job/Company:", body.text)
     print("\n"*2)
